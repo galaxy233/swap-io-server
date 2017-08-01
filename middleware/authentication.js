@@ -12,10 +12,14 @@ var options = {
 };
 
 const user = (req, res, next) => {
+  let auth = req.get("Authorization")
+  if (!auth) {
+    res.status(403).end()
+    return
+  }
   let token = req.get("Authorization").split(' ')[1];
   jwt.verify(token, pem, options, (err, decoded) => {
     if (err) {
-      console.log(err.message);
       res.status(403).send(err)
     } else {
       req.sub = decoded.sub;

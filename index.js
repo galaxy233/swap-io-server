@@ -5,6 +5,8 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 
 const userCtrl = require('./controllers/user');
+const itemCtrl = require('./controllers/item');
+const awsCtrl = require('./controllers/aws');
 
 const config = require('./config');
 
@@ -16,6 +18,11 @@ const authMiddleware = require('./middleware/authentication')
 
 app.get('/api/user', authMiddleware.user, userCtrl.getUserBySub);
 app.post('/api/user', authMiddleware.user, userCtrl.createUser);
+
+app.post('/api/item', authMiddleware.user, itemCtrl.createItem);
+app.get('/api/items', authMiddleware.user, itemCtrl.getItems);
+
+app.post('/api/aws/getsignedurl', authMiddleware.user, awsCtrl.getSignedURL);
 
 massive({
   host: config.elephant.host,
