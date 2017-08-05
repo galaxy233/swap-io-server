@@ -17,6 +17,7 @@
     "express-session": "^1.15.4",
     "jsonwebtoken": "^7.4.1",
     "jwk-to-pem": "^1.2.6",
-    "massive": "^3.0.0"
+    "massive": "^3.0.0",
+    "zipcodes": "^3.0.0"
   }
 }

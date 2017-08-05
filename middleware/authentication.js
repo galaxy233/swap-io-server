@@ -14,7 +14,7 @@ var options = {
 const user = (req, res, next) => {
   let auth = req.get("Authorization")
   if (!auth) {
-    res.status(403).end()
+    res.status(403).send({"error": "You must provide a valid JWT"});
     return
   }
   let token = req.get("Authorization").split(' ')[1];
@@ -28,6 +28,19 @@ const user = (req, res, next) => {
   })
 }
 
+const userOwnsItem = (req, res, next) => {
+  let db = req.app.get('db');
+  db.getItemSub([req.params.id])
+  .then(result => {
+    if (result[0].sub !== req.sub) {
+      res.status(403).send({"error":"You are not authorized."})
+    } else {
+      next()
+    }
+  })
+}
+
 module.exports = {
-  user
+  user,
+  userOwnsItem
 }

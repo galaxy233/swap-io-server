@@ -4,10 +4,20 @@ const createItem = (req, res) => {
         description,
         condition,
         zipcode,
-        image_url } = req.body;
+        image1,
+        image2,
+        image3,
+        image4 } = req.body;
 
-  db.createItem([name, description, req.sub, condition, zipcode, image_url ])
-  .then(item => res.send({"message": "Item created successfully"}))
+  db.createItem([name, description, req.sub, condition, zipcode, image1, image2, image3, image4])
+  .then(item => res.status(201).send(item[0]))
+  .catch(err => res.send(err))
+}
+
+const getItemById = (req, res) => {
+  let db = req.app.get('db');
+  db.items.findOne({id: req.params.id})
+  .then(item => res.send(item))
 }
 
 const getItems = (req, res) => {
@@ -16,7 +26,32 @@ const getItems = (req, res) => {
   .then(items => res.send(items))
 }
 
+const getAllItems = (req, res) => {
+  let db = req.app.get('db');
+  db.items.find()
+  .then(items => res.send(items));
+}
+
+const updateItem = (req, res) => {
+  let db = req.app.get('db');
+  req.body.id = req.params.id
+  delete req.body.user_id;
+  db.items.update(req.body)
+  .then(item => res.send(item))
+}
+
+const deleteItem = (req, res) => {
+  let db = req.app.get('db');
+  db.items.destroy({id: req.params.id})
+  .then(items => res.send(items[0]))
+  .catch(err => res.send(err))
+}
+
 module.exports = {
   createItem,
-  getItems
+  getItemById,
+  getItems,
+  getAllItems,
+  updateItem,
+  deleteItem
 }

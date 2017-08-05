@@ -15,7 +15,10 @@ CREATE TABLE "items" (
 	"user_id" integer NOT NULL,
 	"condition" VARCHAR(255) NOT NULL,
 	"zipcode" VARCHAR(255) NOT NULL,
-	"image_url" VARCHAR(255),
+	"image1" VARCHAR(255),
+	"image2" VARCHAR(255),
+	"image3" VARCHAR(255),
+	"image4" VARCHAR(255),
 	CONSTRAINT items_pk PRIMARY KEY ("id")
 ) WITH (
   OIDS=FALSE
