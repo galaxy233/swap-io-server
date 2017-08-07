@@ -46,7 +46,7 @@ massive({
   password: config.elephant.password,
   database: config.elephant.database
 }).then(db => {
-  db.initDb();
+  // db.initDb();
   app.set('db', db);
   app.listen(3000, () => {
     "Listening on port 3000";

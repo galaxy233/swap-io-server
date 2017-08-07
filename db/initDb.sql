@@ -60,7 +60,8 @@ ALTER TABLE "trades" ADD CONSTRAINT "trades_fk1" FOREIGN KEY ("user2_item_id") R
 INSERT INTO users(username, sub)
 VALUES
 ('thevjm', 'auth0|597ba1d213f40b08485fae42'),
-('victor', 'facebook|1016497821826298');
+('victor', 'facebook|1016497821826298'),
+('galaxy233', 'auth0|5980f5ac341e0b0a039ccd29');
 
 INSERT INTO items
 (name, description, user_id, condition, zipcode, usd_value)

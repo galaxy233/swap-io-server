@@ -1,20 +1,59 @@
 const getTrade = (req, res) => {
-  res.send(req.trade)
+  let db = req.app.get('db');
+  let adder = addTradeInfo(req.sub,db)
+  adder(req.trade)
+  .then(trade => res.send(trade))
+}
+
+const addTradeInfo = (sub, db) => {
+  return (trade) => {
+    let user_init = trade.user1_sub === sub
+    let trading, receiving, user_complete, other_user_complete
+    if (user_init) {
+      trading = trade.user1_item_id
+      receiving = trade.user2_item_id
+      user_complete = trade.user1_complete
+      other_user_complete = trade.user2_complete
+    } else {
+      trading = trade.user2_item_id
+      receiving = trade.user1_item_id
+      user_complete = trade.user2_complete
+      other_user_complete = trade.user1_complete
+    }
+
+    return db.getItemInfo([receiving])
+    .then(result => {
+      return {
+        id: trade.id,
+        status: trade.status,
+        other_username: result[0].username,
+        user_init,
+        trading,
+        receiving,
+        receiving_name: result[0].name,
+        user_complete,
+        other_user_complete
+      }
+    })
+  }
 }
 
 const getTrades = (req, res) => {
   let db = req.app.get('db');
   db.trades.where('user1_sub = $1 OR user2_sub = $1',[req.sub])
-  .then(trades => res.send(trades))
-  .catch(err => res.status(400).send(err))
+  .then(trades => {
+    Promise.all(trades.map(addTradeInfo(req.sub, db)))
+    .then(values => res.send(values))
+  })
+  .catch(err => res.status(400).send(err.message))
 }
 
 const createTrade = (req, res) => {
   let db = req.app.get('db');
-  db.getItemSub([req.body.user1_item_id])
+  db.getItemInfo([req.body.user1_item_id])
   .then(item1 => {
     if (item1[0].sub === req.sub) {
-      db.getItemSub([req.body.user2_item_id])
+      db.getItemInfo([req.body.user2_item_id])
       .then(item2 => {
         req.body.user1_sub = item1[0].sub
         req.body.user2_sub = item2[0].sub

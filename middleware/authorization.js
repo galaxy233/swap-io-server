@@ -30,7 +30,7 @@ const user = (req, res, next) => {
 
 const userOwnsItem = (req, res, next) => {
   let db = req.app.get('db');
-  db.getItemSub([req.params.id])
+  db.getItemInfo([req.params.id])
   .then(result => {
     if (result[0].sub !== req.sub) {
       res.status(403).send({"error":"You are not authorized."})
@@ -49,22 +49,6 @@ const userCanAcceptTrade = (req, res, next) => {
     } else {
       res.status(403).send({"error": "You do not have access to accept this trade."})
     }
-  })
-  .catch(err => res.status(400).send(err))
-}
-
-const cancelTrade = (req, res) => {
-  let db = req.app.get('db');
-  db.trades.findOne({id: req.params.trade_id})
-  .then(trade => {
-    db.getSubsByItems([trade.user1_item_id, trade.user2_item_id])
-    .then(subs => {
-      if (subs[0].sub === req.sub || subs[1].sub === req.sub) {
-
-      } else {
-
-      }
-    })
   })
   .catch(err => res.status(400).send(err))
 }
