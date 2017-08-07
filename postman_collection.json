@@ -1,0 +1,736 @@
+{
+	"variables": [],
+	"info": {
+		"name": "SwapIO",
+		"_postman_id": "274775cf-1882-c78c-f94b-3fd56be27745",
+		"description": "Tests for the SwapIO server",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Add new item (valid JWT)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"var data = JSON.parse(responseBody)",
+							"",
+							"tests[\"Item created successfully\"] = data.name === 'Purple guitar'",
+							"",
+							"postman.setGlobalVariable(\"item_id\", data.id);"
+						]
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"postman.setGlobalVariable(\"accessToken1\", \"eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImtpZCI6IlJVTXlNa001UWpkRU5EbENPVGxGUkRWRE9Ua3pPRFF4UWprek16WTBSRUZFTUVSRU9ERkdSZyJ9.eyJpc3MiOiJodHRwczovL3N3YXBpby5hdXRoMC5jb20vIiwic3ViIjoiZmFjZWJvb2t8MTAxNjQ5NzgyMTgyNjI5OCIsImF1ZCI6WyJodHRwOi8vc3dhcC5pby9hcGkvIiwiaHR0cHM6Ly9zd2FwaW8uYXV0aDAuY29tL3VzZXJpbmZvIl0sImF6cCI6IlpZaFI1eXhObXgwT3l3bXYxNzBWWml5TUswbVhYZ0M0IiwiZXhwIjoxNTAyMTUxNjg3LCJpYXQiOjE1MDIwNjUyODcsInNjb3BlIjoib3BlbmlkIn0.d_8Ig149idmTy3M_lkN3bb8pP6EUW2vVDHMr8RBMmIXUVMRlLePJthZn4bsMZ1_UiqX1R-hbzyoVftAyWo6SnMDn434lEPHi-INi0Hsptyk5DnqHwS1FdmsFKn-w7rHbfFgQ12iCx-mNXLs_5c5zt9tko8p3MXoxHyHRRAB5i4SftQ-K7HgwEUYAQscohbdE9vJbtJ7keKwhJpuYB0bhtXp5otTOFKgtEt92LdUX72e4LuvjOYuTGHx2eI279b40ET_ivESul9xI1_wYLoHBwCDFzhJZa2sVBYMuurKTt3vy6ReM1IDdaHt6MuxQKwo1uckSMDfVfQ3gSyeIvrsrEw\");",
+							"",
+							"postman.setGlobalVariable(\"accessToken2\", \"eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImtpZCI6IlJVTXlNa001UWpkRU5EbENPVGxGUkRWRE9Ua3pPRFF4UWprek16WTBSRUZFTUVSRU9ERkdSZyJ9.eyJpc3MiOiJodHRwczovL3N3YXBpby5hdXRoMC5jb20vIiwic3ViIjoiYXV0aDB8NTk3YmExZDIxM2Y0MGIwODQ4NWZhZTQyIiwiYXVkIjoiaHR0cDovL3N3YXAuaW8vYXBpLyIsImF6cCI6IlpZaFI1eXhObXgwT3l3bXYxNzBWWml5TUswbVhYZ0M0IiwiZXhwIjoxNTAyMTUzODU0LCJpYXQiOjE1MDIwNjc0NTR9.uyfCG7pVsERHb_ZWKozEQbZhIlqlo5ghIilnanii465rM8s4oUsUBbXN2LynXdQJ-xLRPebt1XunnY4nDZgOGNNRteWMyeChsRH5dhUCxolOaskWl0QlKQLob3vIhYT20YRS2FDAZQ6S7wkgLmVRf-gV834VC_ibw3zvKpVO9AxM7YKZXM-i0HZ1IHdMn_HtZJAIFI_sEe8YT6j2do9hCHd8Rew02TFmpoiqQT3XSm4fa3EkVL_t5eYIPVLzN-mw2pG0xlbG42kAst4T9DULoltwJmtgqS2xCQ9IEKdn69x2MT_tKzSe_PokjUcfQjzg3iIwhIxb6md1tAuexBhokQ\");",
+							"",
+							"postman.setGlobalVariable(\"accessToken3\", \"eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImtpZCI6IlJVTXlNa001UWpkRU5EbENPVGxGUkRWRE9Ua3pPRFF4UWprek16WTBSRUZFTUVSRU9ERkdSZyJ9.eyJpc3MiOiJodHRwczovL3N3YXBpby5hdXRoMC5jb20vIiwic3ViIjoiYXV0aDB8NTk4MGY1YWMzNDFlMGIwYTAzOWNjZDI5IiwiYXVkIjoiaHR0cDovL3N3YXAuaW8vYXBpLyIsImF6cCI6IlpZaFI1eXhObXgwT3l3bXYxNzBWWml5TUswbVhYZ0M0IiwiZXhwIjoxNTAyMTU5MDcxLCJpYXQiOjE1MDIwNzI2NzF9.MjYhJUaGee4Ok3KQq1HEQukQbO-oCQV8PSPu3k0W3fIMxjnGPR7MoLzRPrMbPKyOhrc7UDiM5ckCruvKB-I1l4rY16xcuVL4XAnjdOD6YKqnoaS11AgX2-NGZ8npQfUB1dkOvdKIIg6vuzhsECYmomKMKXrLT7HjrKU5N67cChmMyIjcnKvmw1pzviZ-a5yahoQmDFLoD1otw_Xn3fBSTHYJ9KoP-iDOtmPYky-WW0RSjqgSnUlzjENpi4B74lwzNe_gwPyOFPHtVGk-WPz-Bh67wJW2mvjWLR-RD2ZuHQH-4RkzOgG9yp8wQMuSVhDelkiz7Y2-atuludgn-Hu1cg\")"
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "http://localhost:3000/api/item",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{accessToken1}}",
+						"description": ""
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"name\": \"Purple guitar\",\n\t\"description\" : \"An awesome purple guitar\",\n\t\"condition\" : \"Used\",\n\t\"zipcode\" : \"84106\"\n}"
+				},
+				"description": "Add new item to database.\nSet a global variable \"accessToken\" so future requests can authenticate."
+			},
+			"response": []
+		},
+		{
+			"name": "Add new item (no JWT)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Body matches string\"] = responseBody.has(\"You must provide a valid JWT\");",
+							"tests[\"Response status\"] = responseCode.code === 403;"
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "http://localhost:3000/api/item",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"name\": \"Purple guitar\",\n\t\"description\" : \"An awesome purple guitar\",\n\t\"condition\" : \"Used\",\n\t\"zipcode\" : \"84106\"\n}"
+				},
+				"description": "Try adding a new item without providing an access token in the headers"
+			},
+			"response": []
+		},
+		{
+			"name": "Add new item (invalid JWT)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Body matches string\"] = responseBody.has(\"JsonWebTokenError\");",
+							"tests[\"Response status\"] = responseCode.code === 403;"
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "http://localhost:3000/api/item",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImtpZCI6IlJVTXlNa001UWpkRU5EbENPVGxGUkRWRE9Ua3pPRFF4UWprek16WTBSRUZFTUVSRU9ERkdSZyJ9.eyJpc3MiOiJodHRwczovL3N3YXBpby5hdXRoMC5jb20vIiwic3ViIjoiZmFjZWJvb2t8MTAxNjQ5NzgyMTgyNjI5OCIsImF1ZCI6WyJodHRwOi8vc3dhcC5pby9hcGkvIiwiaHR0cHM6Ly9zd2FwaW8uYXV0aDAuY29tL3VzZXJpbmZvIl0sImF6cCI6IlpZaFI1eXhObXgwT3l3bXYxNzBWWml5TUswbVhYZ0M0IiwiZXhwIjoxNTAxNjEwODY0LCJpYXQiOjE1MDE2MDM2NjQsInNjb3BlIjoib3BlbmlkIn0.n1P57grMFnoLZiKFKOohN5Mi19unTSSDK6L5yyCxdom97dwpgB8zaaLnfIaEmNK3XVpAMGkzHgs0L1meAJIUPagMgH6yzF1LdDnqqRXRjsJK2FevKkiTV2-N6u31iGN3NdqJ-Q8_tSQOGxcz2JZzB3Z9Zmhfei4diVjIL74HcjayrC_1DY8axqAuFufqQQ0WNko7Ho8vkT_BhoYjsByaDGH9LHFZSNeHjjGQlVlsbWHaOm3IS5PY84TdpOq1MJq9mFYU0_CN8bPyBM7wB6zMiPHrqbPuxzeOysu_ALePrN6UlqEEE0Aenhvl23tWbB7qtkLInfEE0BwXwTe7_GWQU",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"name\": \"Purple guitar\",\n\t\"description\" : \"An awesome purple guitar\",\n\t\"condition\" : \"Used\",\n\t\"zipcode\" : \"84106\"\n\t\n}"
+				},
+				"description": "Try adding a new item with an invalid access token in the headers"
+			},
+			"response": []
+		},
+		{
+			"name": "Get item by ID",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"var data = JSON.parse(responseBody)",
+							"",
+							"tests[\"Item in response body\"] = data.name === 'Purple guitar'"
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "http://localhost:3000/api/item/{{item_id}}",
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Update item belonging to user",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"",
+							"tests[\"Item updated\"] = data.name === \"Orange guitar\"",
+							"",
+							"postman.setGlobalVariable(\"user_id\", data.user_id);"
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "http://localhost:3000/api/item/{{item_id}}",
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer {{accessToken1}}",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"name\": \"Orange guitar\",\n\t\"description\" : \"An awesome orange guitar\",\n\t\"condition\" : \"New\",\n\t\"zipcode\" : \"84116\"\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Update item not belonging to user",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Body matches string\"] = responseBody.has(\"You are not authorized.\");"
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "http://localhost:3000/api/item/{{item_id}}",
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer {{accessToken2}}",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"name\": \"Red guitar\",\n\t\"description\" : \"An awesome red guitar\",\n\t\"condition\" : \"New\",\n\t\"zipcode\" : \"84116\"\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Update user_id of item",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"",
+							"tests[\"User ID did not change\"] = data.user_id == postman.getGlobalVariable(\"user_id\");"
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "http://localhost:3000/api/item/{{item_id}}",
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer {{accessToken1}}",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"name\": \"Purple guitar 2\",\n\t\"description\" : \"An awesome orange guitar\",\n\t\"condition\" : \"New\",\n\t\"zipcode\" : \"84116\",\n\t\"user_id\" : 55\n}"
+				},
+				"description": "User's should not be allowed to update the user_id of an item."
+			},
+			"response": []
+		},
+		{
+			"name": "Delete item",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"",
+							"tests[\"Item deleted successfully\"] = data.id == postman.getGlobalVariable(\"item_id\")"
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "http://localhost:3000/api/item/{{item_id}}",
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{accessToken1}}",
+						"description": ""
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": "",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Search multiple keywords",
+			"request": {
+				"url": {
+					"raw": "http://localhost:3000/api/search?keywords=yellow purple",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"search"
+					],
+					"query": [
+						{
+							"key": "keywords",
+							"value": "yellow purple",
+							"equals": true,
+							"description": ""
+						}
+					],
+					"variable": []
+				},
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Search results filtered by zipcode",
+			"request": {
+				"url": {
+					"raw": "http://localhost:3000/api/search?keywords=green purple red yellow&radius=100&zipcode=84102",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"search"
+					],
+					"query": [
+						{
+							"key": "keywords",
+							"value": "green purple red yellow",
+							"equals": true,
+							"description": ""
+						},
+						{
+							"key": "radius",
+							"value": "100",
+							"equals": true,
+							"description": ""
+						},
+						{
+							"key": "zipcode",
+							"value": "84102",
+							"equals": true,
+							"description": ""
+						}
+					],
+					"variable": []
+				},
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "User1 can create trade",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"var data = JSON.parse(responseBody)",
+							"",
+							"tests[\"Trade created successfully\"] = data.status === 'pending'",
+							"",
+							"postman.setGlobalVariable(\"trade_id\", data.id);"
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "http://localhost:3000/api/trade",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{accessToken1}}",
+						"description": ""
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"user1_item_id\": 2,\n\t\"user2_item_id\": 1\n}"
+				},
+				"description": "Add new item to database.\nSet a global variable \"accessToken\" so future requests can authenticate."
+			},
+			"response": []
+		},
+		{
+			"name": "User1 cannot accept trade",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Trade was not accepted\"] = responseBody.has(\"error\");"
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "http://localhost:3000/api/trade/accept/{{trade_id}}",
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{accessToken1}}",
+						"description": ""
+					}
+				],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "User2 can accept trade",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"var data = JSON.parse(responseBody)",
+							"",
+							"tests[\"Trade accepted successfully\"] = data.status === 'accepted'"
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "http://localhost:3000/api/trade/accept/{{trade_id}}",
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{accessToken2}}",
+						"description": ""
+					}
+				],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "User1 can cancel trade",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"var jsonData = JSON.parse(responseBody);",
+							"tests[\"Trade was sent back in response\"] = jsonData.id == postman.getGlobalVariable(\"trade_id\");",
+							"tests[\"Trade status was set to 'cancelled'\"] = jsonData.status === 'cancelled'"
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "http://localhost:3000/api/trade/cancel/{{trade_id}}",
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{accessToken1}}",
+						"description": ""
+					}
+				],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "User2 cannot accept trade after cancellation",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Trade status was not changed to accepted\"] = responseBody.has(\"error\");"
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "http://localhost:3000/api/trade/accept/{{trade_id}}",
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{accessToken2}}",
+						"description": ""
+					}
+				],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Create another trade",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"var data = JSON.parse(responseBody)",
+							"",
+							"tests[\"Trade created successfully\"] = data.status === 'pending'",
+							"",
+							"postman.setGlobalVariable(\"trade_id\", data.id);"
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "http://localhost:3000/api/trade",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{accessToken1}}",
+						"description": ""
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"user1_item_id\": 2,\n\t\"user2_item_id\": 1\n}"
+				},
+				"description": "Add new item to database.\nSet a global variable \"accessToken\" so future requests can authenticate."
+			},
+			"response": []
+		},
+		{
+			"name": "User2 can cancel trade",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"var jsonData = JSON.parse(responseBody);",
+							"tests[\"Trade was sent back in response\"] = jsonData.id == postman.getGlobalVariable(\"trade_id\");",
+							"tests[\"Trade status was set to 'cancelled'\"] = jsonData.status === 'cancelled'"
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "http://localhost:3000/api/trade/cancel/{{trade_id}}",
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{accessToken2}}",
+						"description": ""
+					}
+				],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "User3 cannot cancel trade",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Trade was not cancelled\"] = responseBody.has(\"error\");"
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "http://localhost:3000/api/trade/cancel/{{trade_id}}",
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{accessToken3}}",
+						"description": ""
+					}
+				],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Create another trade",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"var data = JSON.parse(responseBody)",
+							"",
+							"tests[\"Trade created successfully\"] = data.status === 'pending'",
+							"",
+							"postman.setGlobalVariable(\"trade_id\", data.id);"
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "http://localhost:3000/api/trade",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{accessToken1}}",
+						"description": ""
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"user1_item_id\": 2,\n\t\"user2_item_id\": 1\n}"
+				},
+				"description": "Add new item to database.\nSet a global variable \"accessToken\" so future requests can authenticate."
+			},
+			"response": []
+		},
+		{
+			"name": "User1 can set trade as complete",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"var jsonData = JSON.parse(responseBody);",
+							"tests[\"Correct field was updated\"] = jsonData.user1_complete === true;"
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "http://localhost:3000/api/trade/complete/{{trade_id}}",
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{accessToken1}}",
+						"description": ""
+					}
+				],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "User2 can set trade as complete",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"var jsonData = JSON.parse(responseBody);",
+							"tests[\"Correct field was updated\"] = jsonData.user2_complete === true;"
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "http://localhost:3000/api/trade/complete/{{trade_id}}",
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{accessToken2}}",
+						"description": ""
+					}
+				],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		}
+	]
+}

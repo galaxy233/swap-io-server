@@ -8,6 +8,7 @@ const userCtrl = require('./controllers/user');
 const itemCtrl = require('./controllers/item');
 const awsCtrl = require('./controllers/aws');
 const searchCtrl = require('./controllers/search');
+const tradeCtrl = require('./controllers/trade')
 
 const config = require('./config');
 
@@ -15,7 +16,7 @@ const app = express();
 
 app.use(bodyParser.json());
 app.use(cors());
-const authMiddleware = require('./middleware/authentication')
+const authMiddleware = require('./middleware/authorization');
 
 app.get('/api/user', authMiddleware.user, userCtrl.getUserBySub);
 app.post('/api/user', authMiddleware.user, userCtrl.createUser);
@@ -27,7 +28,14 @@ app.post('/api/item', authMiddleware.user, itemCtrl.createItem);
 app.put('/api/item/:id', authMiddleware.user, authMiddleware.userOwnsItem, itemCtrl.updateItem);
 app.delete('/api/item/:id', authMiddleware.user, authMiddleware.userOwnsItem, itemCtrl.deleteItem);
 
-app.get('/api/search', searchCtrl.searchAll)
+app.get('/api/search', searchCtrl.searchAll);
+
+app.get('/api/trade/:trade_id', authMiddleware.user, authMiddleware.userInTrade, tradeCtrl.getTrade);
+app.get('/api/trades/', authMiddleware.user, tradeCtrl.getTrades);
+app.post('/api/trade', authMiddleware.user, tradeCtrl.createTrade);
+app.put('/api/trade/accept/:trade_id', authMiddleware.user, authMiddleware.userCanAcceptTrade, tradeCtrl.acceptTrade);
+app.put('/api/trade/cancel/:trade_id', authMiddleware.user, authMiddleware.userInTrade, tradeCtrl.cancelTrade);
+app.put('/api/trade/complete/:trade_id', authMiddleware.user, authMiddleware.userInTrade, tradeCtrl.completeTrade);
 
 app.post('/api/aws/getsignedurl', authMiddleware.user, awsCtrl.getSignedURL);
 
