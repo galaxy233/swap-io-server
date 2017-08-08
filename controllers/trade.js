@@ -64,7 +64,7 @@ const createTrade = (req, res) => {
       res.send({"error": "You can only trade items in your inventory."})
     }
   })
-  .catch(err => res.status(400).send(err))
+  .catch(err => res.status(400).send(err.message))
 }
 
 const acceptTrade = (req, res) => {
