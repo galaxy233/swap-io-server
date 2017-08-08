@@ -35,7 +35,7 @@ app.get('/api/trades/', authMiddleware.user, tradeCtrl.getTrades);
 app.post('/api/trade', authMiddleware.user, tradeCtrl.createTrade);
 app.put('/api/trade/accept/:trade_id', authMiddleware.user, authMiddleware.userCanAcceptTrade, tradeCtrl.acceptTrade);
 app.put('/api/trade/cancel/:trade_id', authMiddleware.user, authMiddleware.userInTrade, tradeCtrl.cancelTrade);
-app.put('/api/trade/complete/:trade_id', authMiddleware.user, authMiddleware.userInTrade, tradeCtrl.completeTrade);
+app.put('/api/trade/complete/:trade_id', authMiddleware.user, authMiddleware.userInTrade, tradeCtrl.userComplete);
 
 app.post('/api/aws/getsignedurl', authMiddleware.user, awsCtrl.getSignedURL);
 
@@ -46,7 +46,7 @@ massive({
   password: config.elephant.password,
   database: config.elephant.database
 }).then(db => {
-  // db.initDb();
+  db.initDb();
   app.set('db', db);
   app.listen(3000, () => {
     "Listening on port 3000";

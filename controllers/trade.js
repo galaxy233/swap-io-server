@@ -74,7 +74,10 @@ const acceptTrade = (req, res) => {
       id: req.params.trade_id,
       status: 'accepted'
     }
-  ).then(trade => res.send(trade))
+  ).then(trade => {
+    let adder = addTradeInfo(req.sub,db)
+    adder(trade).then(trade => res.send(trade))
+  })
   .catch(err => res.status(400).send(err))
 }
 
@@ -85,11 +88,14 @@ const cancelTrade = (req, res) => {
       id: req.params.trade_id,
       status: 'cancelled'
     }
-  ).then(trade => res.send(trade))
+  ).then(trade => {
+    let adder = addTradeInfo(req.sub,db)
+    adder(trade).then(trade => res.send(trade))
+  })
   .catch(err => res.status(400).send(err))
 }
 
-const completeTrade = (req, res) => {
+const userComplete = (req, res, next) => {
   let db = req.app.get('db');
   let data = {id:req.trade.id}
   if (req.trade.user1_sub === req.sub) {
@@ -98,7 +104,14 @@ const completeTrade = (req, res) => {
     data.user2_complete = true
   }
   db.trades.update(data)
-  .then(trade => res.send(trade))
+  .then(trade => {
+    if (trade.user1_complete && trade.user2_complete) {
+      next()
+    } else {
+      let adder = addTradeInfo(req.sub,db)
+      adder(trade).then(trade => res.send(trade))
+    }
+  })
   .catch(err => res.status(400).send(err))
 }
 
@@ -108,5 +121,5 @@ module.exports = {
   createTrade,
   acceptTrade,
   cancelTrade,
-  completeTrade
+  userComplete
 }
