@@ -65,11 +65,11 @@ VALUES
 ('galaxy233', '10003', 'auth0|5980f5ac341e0b0a039ccd29');
 
 INSERT INTO items
-(name, description, user_id, condition, zipcode, usd_value)
+(name, description, user_id, condition, image1, zipcode, usd_value)
 VALUES
 
-('Red computer', 'A nice computer, very fast', 1, 'Used', '10001', 50),
-('Honda Civic', 'Kinda boring, but it runs', 2, 'New', '84103', 100);
+('Red computer', 'A nice computer, very fast', 1, 'Used', 'https://thetomatos.com/wp-content/uploads/2016/10/red-computer-screen-clipart.png', '10001', 50),
+('Honda Civic', 'Kinda boring, but it runs', 2, 'New', 'https://media.ed.edmunds-media.com/honda/civic/2008/oem/2008_honda_civic_sedan_ex_fq_oem_2_500.jpg', '84103', 100);
 
 INSERT INTO trades
 ( user1_item_id, user2_item_id, user1_sub, user2_sub )

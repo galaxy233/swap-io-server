@@ -115,11 +115,21 @@ const userComplete = (req, res, next) => {
   .catch(err => res.status(400).send(err))
 }
 
+const completeTrade = (req, res) => {
+  let db = req.app.get('db');
+  db.tradeComplete([req.trade.user1_item_id, req.trade.user2_item_id])
+  .then(() => {
+    db.trades.update({id:req.trade.id,status:"complete"})
+    .then(trade => res.send(trade))
+  })
+}
+
 module.exports = {
   getTrade,
   getTrades,
   createTrade,
   acceptTrade,
   cancelTrade,
-  userComplete
+  userComplete,
+  completeTrade
 }
