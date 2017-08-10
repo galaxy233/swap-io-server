@@ -18,6 +18,7 @@
     "jsonwebtoken": "^7.4.1",
     "jwk-to-pem": "^1.2.6",
     "massive": "^3.0.0",
+    "sentencer": "^0.1.5",
     "zipcodes": "^3.0.0"
   }
 }

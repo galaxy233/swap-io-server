@@ -20,12 +20,25 @@ const searchAll = (req, res) => {
   let regex = `.*(${keywords}).*`;
   db.searchAll([regex])
   .then(results => {
-    let { zipcode, radius } = req.query;
+    const { zipcode, radius, sortby } = req.query;
     if (zipcode && radius) {
-      res.send(results.filter(radiusFilter(zipcode, radius)).map(addDistance(zipcode)))
-    } else {
-      res.send(results)
+      results = results.filter(radiusFilter(zipcode, radius)).map(addDistance(zipcode))
     }
+    switch (sortby) {
+      case 'distance asc':
+        results.sort((a,b) => a.distance-b.distance)
+        break;
+      case 'distance desc':
+        results.sort((a,b) => b.distance-a.distance)
+        break;
+      case 'value asc':
+        results.sort((a,b) => a.usd_value-b.usd_value)
+        break;
+      case 'value desc':
+        results.sort((a,b) => b.usd_value-a.usd_value)
+        break;
+    }
+    res.send(results);
   })
 }
 

@@ -4,12 +4,13 @@ const createItem = (req, res) => {
         description,
         condition,
         zipcode,
+        usd_value,
         image1,
         image2,
         image3,
         image4 } = req.body;
 
-  db.createItem([name, description, req.sub, condition, zipcode, image1, image2, image3, image4])
+  db.createItem([name, description, req.sub, condition, zipcode, image1, image2, image3, image4, Number(usd_value)])
   .then(item => res.status(201).send(item[0]))
   .catch(err => res.send(err))
 }
@@ -44,7 +45,10 @@ const deleteItem = (req, res) => {
   let db = req.app.get('db');
   db.items.destroy({id: req.params.id})
   .then(items => res.send(items[0]))
-  .catch(err => res.send(err))
+  .catch(err => {
+    console.log(err.message);
+    res.send(err.message);
+  })
 }
 
 module.exports = {

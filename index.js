@@ -20,6 +20,7 @@ const authMiddleware = require('./middleware/authorization');
 
 app.get('/api/user', authMiddleware.user, userCtrl.getUserBySub);
 app.post('/api/user', authMiddleware.user, userCtrl.createUser);
+app.get('/api/user/:username', userCtrl.checkUsername);
 
 app.get('/api/items', authMiddleware.user, itemCtrl.getItems);
 app.get('/api/items/all', itemCtrl.getAllItems);
@@ -46,9 +47,8 @@ massive({
   password: config.elephant.password,
   database: config.elephant.database
 }).then(db => {
-  db.initDb();
   app.set('db', db);
   app.listen(3000, () => {
-    "Listening on port 3000";
+    console.log("Listening on port 3000");
   })
 })
