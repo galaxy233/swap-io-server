@@ -22,6 +22,7 @@ const authMiddleware = require('./middleware/authorization');
 app.get('/api/user', authMiddleware.user, userCtrl.getUserBySub);
 app.post('/api/user', authMiddleware.user, userCtrl.createUser);
 app.get('/api/user/:username', userCtrl.checkUsername);
+app.get('/api/getzipcode', userCtrl.getZipcodeByCoords);
 
 app.get('/api/items', authMiddleware.user, itemCtrl.getItems);
 app.get('/api/items/all', itemCtrl.getAllItems);

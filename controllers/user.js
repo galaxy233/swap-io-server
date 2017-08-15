@@ -1,3 +1,5 @@
+const geocoder = require('geocoder');
+
 const getUserBySub = (req, res) => {
   let db = req.app.get('db');
   db.users.findOne({
@@ -33,8 +35,20 @@ const checkUsername = (req, res) => {
   })
 }
 
+const getZipcodeByCoords = (req, res) => {
+  geocoder.reverseGeocode(req.query.lat, req.query.long, (err, data) => {
+    if (err) {
+      res.send({"error": "Reverse geocode lookup failed."})
+    } else {
+      let zipcode = data.results[0].formatted_address.match(/,\s\w{2}\s(\d{5})/)[1]
+      res.send({zipcode})
+    }
+  })
+}
+
 module.exports = {
   getUserBySub,
   createUser,
-  checkUsername
+  checkUsername,
+  getZipcodeByCoords
 }
