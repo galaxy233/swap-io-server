@@ -14,6 +14,7 @@
     "body-parser": "^1.17.2",
     "cors": "^2.8.4",
     "express": "^4.15.3",
+    "express-history-api-fallback": "^2.2.1",
     "express-session": "^1.15.4",
     "geocoder": "^0.2.3",
     "jsonwebtoken": "^7.4.1",

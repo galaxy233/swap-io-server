@@ -1,23 +1,31 @@
 const express = require('express');
 const session = require('express-session')
 const massive = require('massive');
+
 const bodyParser = require('body-parser');
+const fallback = require('express-history-api-fallback');
+const authMiddleware = require('./middleware/authorization');
 const cors = require('cors');
 
 const userCtrl = require('./controllers/user');
 const itemCtrl = require('./controllers/item');
 const awsCtrl = require('./controllers/aws');
 const searchCtrl = require('./controllers/search');
-const tradeCtrl = require('./controllers/trade')
+const tradeCtrl = require('./controllers/trade');
 
 const config = require('./config');
 
 const app = express();
+const root = __dirname + '/public';
 
 app.use(bodyParser.json());
-app.use(cors());
-app.use(express.static('public'))
-const authMiddleware = require('./middleware/authorization');
+app.use(express.static(root));
+app.use(fallback('index.html', { root: root }));
+
+if (process.env.NODE_ENV === 'development') {
+  console.log("Warning: CORS in enabled on ALL requests.");
+  app.use(cors())
+}
 
 app.get('/api/user', authMiddleware.user, userCtrl.getUserBySub);
 app.post('/api/user', authMiddleware.user, userCtrl.createUser);
@@ -54,4 +62,4 @@ massive({
   app.listen(3000, () => {
     console.log("Listening on port 3000");
   })
-})
+});
