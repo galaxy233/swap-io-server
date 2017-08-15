@@ -16,6 +16,7 @@ const app = express();
 
 app.use(bodyParser.json());
 app.use(cors());
+app.use(express.static('public'))
 const authMiddleware = require('./middleware/authorization');
 
 app.get('/api/user', authMiddleware.user, userCtrl.getUserBySub);
