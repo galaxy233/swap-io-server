@@ -24,6 +24,7 @@ app.get('/api/user/:username', userCtrl.checkUsername);
 
 app.get('/api/items', authMiddleware.user, itemCtrl.getItems);
 app.get('/api/items/all', itemCtrl.getAllItems);
+app.get('/api/items/featured', itemCtrl.getFeaturedItems);
 app.get('/api/item/:id', itemCtrl.getItemById);
 app.post('/api/item', authMiddleware.user, itemCtrl.createItem);
 app.put('/api/item/:id', authMiddleware.user, authMiddleware.userOwnsItem, itemCtrl.updateItem);

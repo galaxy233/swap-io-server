@@ -51,11 +51,18 @@ const deleteItem = (req, res) => {
   })
 }
 
+const getFeaturedItems = (req, res) => {
+  let db = req.app.get('db');
+  db.getFeaturedItems()
+  .then(items => res.send(items))
+}
+
 module.exports = {
   createItem,
   getItemById,
   getItems,
   getAllItems,
   updateItem,
-  deleteItem
+  deleteItem,
+  getFeaturedItems
 }
