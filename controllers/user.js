@@ -40,8 +40,12 @@ const getZipcodeByCoords = (req, res) => {
     if (err) {
       res.send({"error": "Reverse geocode lookup failed."})
     } else {
-      let zipcode = data.results[0].formatted_address.match(/,\s\w{2}\s(\d{5})/)[1]
-      res.send({zipcode})
+      let match = data.results[0].formatted_address.match(/,\s\w{2}\s(\d{5})/)
+      if (match) {
+        res.send({zipcode:match[1]})
+      } else {
+        res.send({"error" : "Unable to find zipcode"})
+      }
     }
   })
 }

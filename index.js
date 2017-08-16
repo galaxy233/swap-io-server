@@ -16,14 +16,12 @@ const tradeCtrl = require('./controllers/trade');
 const config = require('./config');
 
 const app = express();
-const root = __dirname + '/public';
 
 app.use(bodyParser.json());
-app.use(express.static(root));
-app.use(fallback('index.html', { root: root }));
+app.use(express.static(__dirname + '/public'));
 
 if (process.env.NODE_ENV === 'development') {
-  console.log("Warning: CORS in enabled on ALL requests.");
+  console.log("Warning: CORS is enabled on ALL requests.");
   app.use(cors())
 }
 
@@ -50,6 +48,8 @@ app.put('/api/trade/cancel/:trade_id', authMiddleware.user, authMiddleware.userI
 app.put('/api/trade/complete/:trade_id', authMiddleware.user, authMiddleware.userInTrade, tradeCtrl.userComplete, tradeCtrl.completeTrade);
 
 app.post('/api/aws/getsignedurl', authMiddleware.user, awsCtrl.getSignedURL);
+
+app.use(fallback('index.html', { root: __dirname + '/public' }));
 
 massive({
   host: config.elephant.host,
