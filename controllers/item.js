@@ -1,3 +1,19 @@
+const zipcodes = require('zipcodes');
+
+const radiusFilter = (zipcode, radius) => {
+  return (item) => {
+    let withinRadius = zipcodes.radius(zipcode, radius);
+    return withinRadius.indexOf(item.zipcode) !== -1;
+  }
+}
+
+const addDistance = (zipcode) => {
+  return (item) => {
+    item.distance = zipcodes.distance(zipcode, item.zipcode)
+    return item
+  }
+}
+
 const createItem = (req, res) => {
   let db = req.app.get('db');
   let { name,
@@ -53,8 +69,12 @@ const deleteItem = (req, res) => {
 
 const getFeaturedItems = (req, res) => {
   let db = req.app.get('db');
-  db.getFeaturedItems()
-  .then(items => res.send(items))
+  db.items.find()
+  .then(items => {
+    items = items.map(addDistance(req.params.zipcode))
+    items.sort((a,b) => a.distance-b.distance)
+    res.send(items.slice(0,3))
+  })
 }
 
 module.exports = {
